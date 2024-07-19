@@ -1,24 +1,14 @@
-import React, { useState } from "react";
+import React from 'react';
 import './style.scss';
 import Item from "./Item";
+import { ITask } from '../../types/task';
 
-function List(){
-    
-    const [tasks, setTasks] = useState([{
-        task: 'React',
-        time: '02:00:00'
-    }, {
-        task: 'JavaScript',
-        time: '01:00:00'
-    }]);
-
+function List({tarefas}: {tarefas: ITask[]}){
     return(
         <aside className="listaTarefas">
-            <h2 onClick={() => {
-                setTasks([...tasks, {task: "Estudar estado", time: "05:00:00"}])
-            }}> Estudos do dia </h2>
+            <h2> Estudos do dia </h2>
             <ul>
-                {tasks.map((item, index) => (
+                {tarefas.map((item, index) => (
                     <Item 
                         key={index}
                         {...item}
