@@ -21,6 +21,11 @@ class Form extends React.Component<{
                 }
             ]
         )
+
+        this.setState({ 
+            task: "",
+            time: "00:00"
+        })
     }
     
     render(): React.ReactNode {
