@@ -5,7 +5,7 @@ import { ITask } from '../../types/task';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
-    setTarefas: React.Dispatch<React.SetStateAction<ITask[]>>
+    setTasks: React.Dispatch<React.SetStateAction<ITask[]>>
 }
 
 class Form extends React.Component<{
@@ -18,12 +18,13 @@ class Form extends React.Component<{
 
     addTask(evento: React.FormEvent<HTMLFormElement>){
         evento.preventDefault();
+        const {task, time} = this.state
         this.props.setTasks(tarefasAntigas => 
             [
                 ...tarefasAntigas,
                 { 
-                    task: "",
-                    time: "00:00",
+                    task,
+                    time,
                     selecionado: false,
                     completado: false,
                     id: uuidv4()
