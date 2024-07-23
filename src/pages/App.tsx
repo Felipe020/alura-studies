@@ -3,21 +3,29 @@ import Form from '../components/Form';
 import List from '../components/List';
 import './style.scss'
 import Cronometro from '../components/Cronometro';
+import { ITask } from '../types/task';
 
 function App() {
   
-  const [tasks, setTasks] = useState([{
-    task: 'React',
-    time: '02:00:00'
-  }, {
-    task: 'JavaScript',
-    time: '01:00:00'
-  }]);
+  const [tasks, setTasks] = useState<ITask[]>([]);
+
+  const [selecionado, setSelecionado] = useState<ITask>();
+
+  function selecionaTarefa(tarefaSelecionada: ITask) {
+    setSelecionado(tarefaSelecionada);
+    setTasks(tarefasAnteriores => tarefasAnteriores.map(tarefa => ({
+      ...tarefa,
+      selecionado: tarefa.id === tarefaSelecionada.id ? true : false
+    })))  
+  }
 
   return (
     <div className="AppStyle">
         <Form setTasks={setTasks}/>
-        <List tarefas={tasks}/>
+        <List
+          tarefas={tasks}
+          selecionaTarefa={selecionaTarefa} 
+        />
         <Cronometro />
     </div>
   );

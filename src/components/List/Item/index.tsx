@@ -1,8 +1,30 @@
+import { ITask } from '../../../types/task';
 import '.././style.scss';
 
-export default function Item({task, time}: {task: string, time: string}){
+interface Props extends ITask {
+    selecionaTarefa: (tarefaSelecionada: ITask) => void
+}
+
+export default function Item(
+    {
+        task,
+        time,
+        selecionado,
+        completado,
+        id,
+        selecionaTarefa
+    }: Props){
+
     return(
-        <li className="item">
+        <li className="item" 
+        onClick={() => selecionaTarefa(
+        {
+            task,
+            time,
+            selecionado,
+            completado,
+            id
+        })}>
         <h3>{task}</h3>
         <span>{time}</span>
     </li>
