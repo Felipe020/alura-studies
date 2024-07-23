@@ -2,7 +2,7 @@ import Button from "../Button"
 import Relogio from "./Relogio"
 import style from './Cronometro.module.scss'
 import { ITask } from "../../types/task"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { tempoParaSegundos } from "../../common/utils/date";
 
 interface Props {
@@ -11,15 +11,18 @@ interface Props {
 
 export default function Cronometro({selecionado}: Props) {
     const [tempo, setTempo] = useState<number>();
-    if(selecionado?.time){
-        setTempo(tempoParaSegundos(selecionado.time))
-    }
+
+    useEffect(() => {
+        if(selecionado?.time){
+            setTempo(tempoParaSegundos(selecionado?.time))
+        }
+    }, [selecionado])
+
     return(
         <div className={style.cronometro}>
             <p className={style.titulo}>Escolha um card e inicie o cronometro</p>
-            Tempo: {tempo}
             <div className={style.relogioWrapper}>
-                <Relogio />
+                <Relogio tempo={tempo}/>
             </div>
             <Button
                 texto = "Começar!"
